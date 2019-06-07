@@ -1,0 +1,9 @@
+version: '2'
+services:
+  onixbean-app:
+    image: hmchung/springboot-docker
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+    ports:
+      - 8080:8080
