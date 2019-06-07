@@ -1,16 +1,11 @@
-FROM openjdk:jre-alpine
-VOLUME /tmp
-ARG JAR_FILE
+# You can use the official wildfly image if you're planning to run Java 8 web apps
+FROM mechero/wildfly:13.0.0-openjdk-10
 
-ENV _JAVA_OPTIONS "-Xms256m -Xmx512m -Djava.awt.headless=true"
+ARG WAR_FILE
 
-COPY ${JAR_FILE} /opt/app.jar
-
-RUN addgroup bootapp && \
-    adduser -D -S -h /var/cache/bootapp -s /sbin/nologin -G bootapp bootapp
-
-WORKDIR /opt
-USER bootapp
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/opt/app.jar"]
-
+# Expose the default's application port
 EXPOSE 8080
+
+# Copy the war file to the deployments folder
+# COPY ${WAR_FILE} /opt/jboss/wildfly/standalone/deployments/app.war
+COPY target/springboot-docker-0.0.1-SNAPSHOT.war /opt/jboss/wildfly/standalone/deployments/springboot-docker.war

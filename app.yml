@@ -1,6 +1,6 @@
 version: '2'
 services:
-  onixbean-app:
+  springbootdocker-app:
     image: hmchung/springboot-docker
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
